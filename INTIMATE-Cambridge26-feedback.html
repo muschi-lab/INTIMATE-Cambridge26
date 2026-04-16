@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>INTIMATE-Cambridge26 | Session Feedback</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    /* 60-30-10 palette — earthy greens & deep ocean blues */
+    --bg:        #f7f5f0;
+    --surface:   #ffffff;
+    --accent:    #2d6a4f;
+    --accent2:   #1b4965;
+    --accent-light: #d8f3dc;
+    --accent2-light: #d0e8f2;
+    --text:      #2b2b2b;
+    --text-muted:#6b6b6b;
+    --border:    #e0ddd6;
+    --radius:    12px;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,.06);
+    --shadow-md: 0 4px 20px rgba(0,0,0,.08);
+    --shadow-lg: 0 12px 40px rgba(0,0,0,.10);
+
+    /* Emil Kowalski — custom easing curves */
+    --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+    --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+    --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── Scroll-triggered fade-in (Emil: stagger + scale from 0.95, never 0) ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(16px) scale(0.98);
+    transition: opacity 500ms var(--ease-out), transform 500ms var(--ease-out);
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  /* Stagger children (Emil: stagger animations for lists) */
+  .stagger-children .reveal:nth-child(1) { transition-delay: 0ms; }
+  .stagger-children .reveal:nth-child(2) { transition-delay: 60ms; }
+  .stagger-children .reveal:nth-child(3) { transition-delay: 120ms; }
+  .stagger-children .reveal:nth-child(4) { transition-delay: 180ms; }
+  .stagger-children .reveal:nth-child(5) { transition-delay: 240ms; }
+  .stagger-children .reveal:nth-child(6) { transition-delay: 300ms; }
+  .stagger-children .reveal:nth-child(7) { transition-delay: 360ms; }
+
+  /* ── Hero ─────────────────────────────────────── */
+  .hero {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #1b4965 0%, #2d6a4f 55%, #40916c 100%);
+    color: #fff;
+    padding: 0;
+    min-height: 540px;
+    display: flex;
+    align-items: center;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 20% 80%, rgba(255,255,255,.07) 0%, transparent 70%),
+      radial-gradient(ellipse 60% 50% at 80% 20%, rgba(255,255,255,.05) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute; inset: 0;
+    opacity: .04;
+    background-image:
+      repeating-conic-gradient(from 0deg at 50% 50%, transparent 0deg, transparent 3deg, rgba(255,255,255,.4) 3deg, rgba(255,255,255,.4) 3.5deg, transparent 3.5deg);
+    pointer-events: none;
+  }
+  .hero-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 80px 40px 88px;
+    text-align: center;
+  }
+
+  /* ── Logo ────────────────────────────────────── */
+  .hero-logo {
+    background: rgba(255,255,255,0.92);
+    border-radius: 16px;
+    padding: 20px 32px;
+    display: inline-block;
+    margin-bottom: 40px;
+    animation: logoEnter 700ms var(--ease-out) both;
+  }
+  .hero-logo img {
+    height: 126px;
+    width: auto;
+    display: block;
+  }
+  @keyframes logoEnter {
+    from { opacity: 0; transform: scale(0.92); filter: blur(4px); }
+    to   { opacity: 1; transform: scale(1);    filter: blur(0px); }
+  }
+
+  /* ── Title ───────────────────────────────────── */
+  .hero h1 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 700;
+    font-size: clamp(2.4rem, 5.5vw, 3.6rem);
+    line-height: 1.15;
+    text-align: center;
+    margin: 0 0 8px;
+    animation: titleEnter 700ms var(--ease-out) 150ms both;
+  }
+  @keyframes titleEnter {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero h1 span {
+    display: block;
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    font-size: .42em;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    opacity: .85;
+    margin-top: 12px;
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 24px;
+    font-size: .95rem;
+    font-weight: 400;
+    margin-top: 36px;
+    animation: fadeUp 700ms var(--ease-out) 350ms both;
+  }
+  .hero-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,.1);
+    border-radius: 8px;
+    padding: 8px 16px;
+    transition: background 200ms ease, transform 160ms var(--ease-out);
+  }
+  .hero-meta-item:hover {
+    background: rgba(255,255,255,.18);
+  }
+  .hero-meta-item svg {
+    width: 18px; height: 18px;
+    flex-shrink: 0;
+    opacity: .85;
+  }
+  .hero-cta {
+    margin-top: 40px;
+    animation: fadeUp 700ms var(--ease-out) 550ms both;
+  }
+
+  /* Emil: buttons must feel responsive — scale(0.97) on :active */
+  .hero-cta a {
+    display: inline-block;
+    background: #fff;
+    color: var(--accent);
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 14px 36px;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: transform 160ms var(--ease-out), box-shadow 200ms var(--ease-out);
+    box-shadow: 0 4px 16px rgba(0,0,0,.15);
+  }
+  .hero-cta a:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(0,0,0,.2);
+  }
+  .hero-cta a:active {
+    transform: scale(0.97);
+    box-shadow: 0 2px 8px rgba(0,0,0,.12);
+  }
+
+  /* ── Section layout ──────────────────────────── */
+  section { padding: 72px 24px; }
+  .container { max-width: 800px; margin: 0 auto; }
+  .section-label {
+    font-size: .75rem;
+    font-weight: 600;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .section-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.9rem;
+    font-weight: 600;
+    color: var(--accent2);
+    margin-bottom: 16px;
+  }
+  .section-desc {
+    color: var(--text-muted);
+    font-size: 1.02rem;
+    max-width: 620px;
+    margin-bottom: 40px;
+  }
+
+  /* ── Info cards ───────────────────────────────── */
+  .info-section { background: var(--surface); }
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-top: 32px;
+  }
+  .info-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    transition: box-shadow 200ms var(--ease-out), transform 200ms var(--ease-out);
+  }
+  .info-card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+  .info-card h3 {
+    font-size: .95rem;
+    font-weight: 600;
+    color: var(--accent2);
+    margin-bottom: 6px;
+  }
+  .info-card p {
+    font-size: .9rem;
+    color: var(--text-muted);
+    line-height: 1.55;
+  }
+
+  /* ── Form ─────────────────────────────────────── */
+  .form-section { background: var(--surface); }
+  .form-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 40px 36px;
+    box-shadow: var(--shadow-sm);
+  }
+  .form-group { margin-bottom: 32px; }
+  .form-group:last-of-type { margin-bottom: 0; }
+  .form-group legend,
+  .form-group label.group-label {
+    display: block;
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: var(--accent2);
+    margin-bottom: 6px;
+  }
+  .form-group .group-hint {
+    font-size: .88rem;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+  }
+
+  /* Checkbox rows — Emil: transitions not keyframes for interruptible UI */
+  .checkbox-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .cb-row { position: relative; }
+  .cb-row input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    width: 0; height: 0;
+  }
+  .cb-row label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 18px;
+    cursor: pointer;
+    font-size: .95rem;
+    transition: border-color 150ms var(--ease-out), background 150ms var(--ease-out), box-shadow 150ms var(--ease-out), transform 160ms var(--ease-out);
+  }
+  .cb-row label:hover {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(45,106,79,.08);
+    transform: translateY(-1px);
+  }
+  /* Emil: active press feedback */
+  .cb-row label:active {
+    transform: scale(0.98);
+  }
+  .cb-row input:checked + label {
+    border-color: var(--accent);
+    background: var(--accent-light);
+    box-shadow: 0 0 0 3px rgba(45,106,79,.12);
+  }
+  .cb-check {
+    width: 22px; height: 22px;
+    border: 2px solid var(--border);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: background 150ms var(--ease-out), border-color 150ms var(--ease-out), transform 200ms var(--ease-out);
+  }
+  .cb-check svg { opacity: 0; transition: opacity 150ms var(--ease-out); width: 14px; height: 14px; }
+  .cb-row input:checked + label .cb-check {
+    background: var(--accent);
+    border-color: var(--accent);
+    transform: scale(1.05);
+  }
+  .cb-row input:checked + label .cb-check svg { opacity: 1; }
+
+  /* Textarea & inputs */
+  .form-textarea {
+    width: 100%;
+    min-height: 120px;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 18px;
+    font-family: 'Inter', sans-serif;
+    font-size: .95rem;
+    line-height: 1.6;
+    color: var(--text);
+    background: var(--surface);
+    resize: vertical;
+    transition: border-color 150ms var(--ease-out), box-shadow 150ms var(--ease-out);
+  }
+  .form-textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(45,106,79,.1);
+  }
+  .form-textarea::placeholder { color: #b0aca3; }
+
+  .form-input {
+    width: 100%;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 18px;
+    font-family: 'Inter', sans-serif;
+    font-size: .95rem;
+    color: var(--text);
+    background: var(--surface);
+    transition: border-color 150ms var(--ease-out), box-shadow 150ms var(--ease-out);
+  }
+  .form-input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(45,106,79,.1);
+  }
+  .form-input::placeholder { color: #b0aca3; }
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  /* Submit — Emil: active scale + custom easing */
+  .form-submit { margin-top: 36px; text-align: center; }
+  .btn-submit {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 14px 48px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: transform 160ms var(--ease-out), box-shadow 200ms var(--ease-out);
+    box-shadow: 0 4px 16px rgba(45,106,79,.25);
+  }
+  .btn-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(45,106,79,.3);
+  }
+  .btn-submit:active {
+    transform: scale(0.97);
+    box-shadow: 0 2px 8px rgba(45,106,79,.15);
+  }
+  .btn-submit:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: 0 2px 8px rgba(45,106,79,.1);
+  }
+
+  /* ── Focus states (accessibility) ────────────── */
+  .form-input:focus,
+  .form-textarea:focus,
+  .btn-submit:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+  .cb-row input:focus-visible + label {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+  a.hero-meta-item:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 4px;
+    border-radius: 8px;
+  }
+  .hero-cta a:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 4px;
+  }
+
+  /* ── Visually hidden labels (accessible but not visible) ── */
+  .sr-only {
+    position: absolute;
+    width: 1px; height: 1px;
+    padding: 0; margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  /* Thank-you state — Emil: enter faster (200ms), blur mask for transition */
+  .thank-you {
+    display: none;
+    text-align: center;
+    padding: 60px 20px;
+  }
+  .thank-you.visible {
+    display: block;
+    animation: thankYouEnter 400ms var(--ease-out) both;
+  }
+  @keyframes thankYouEnter {
+    from {
+      opacity: 0;
+      transform: scale(0.96);
+      filter: blur(4px);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+      filter: blur(0px);
+    }
+  }
+  .thank-you h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+  .thank-you p { color: var(--text-muted); font-size: 1.05rem; }
+
+  /* ── Footer ──────────────────────────────────── */
+  footer {
+    text-align: center;
+    padding: 40px 24px;
+    font-size: .85rem;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border);
+  }
+  footer a { color: var(--accent); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+
+  /* ── Responsive ──────────────────────────────── */
+  @media (max-width: 600px) {
+    .hero-inner { padding: 56px 20px 56px; }
+    .hero-logo img { height: 80px; }
+    .hero-logo { padding: 14px 20px; border-radius: 12px; margin-bottom: 28px; }
+    .info-grid { grid-template-columns: 1fr; }
+    .hero-meta { flex-direction: column; align-items: center; }
+    section { padding: 48px 16px; }
+    .form-card { padding: 28px 20px; }
+    .form-row { grid-template-columns: 1fr; }
+  }
+
+  /* ── Emil: respect prefers-reduced-motion ──── */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+    .reveal {
+      opacity: 1;
+      transform: none;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- ════════ HERO ════════ -->
+<header class="hero">
+  <div class="hero-inner">
+    <div class="hero-logo">
+      <img src="logo.svg" alt="INTIMATE — Integrating Ice Core, Marine and Terrestrial Records">
+    </div>
+    <h1>
+      INTIMATE-Cambridge26
+      <span>INTegrating Ice core, MArine &amp; TErrestrial records</span>
+    </h1>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        14&ndash;17 September 2026
+      </div>
+      <div class="hero-meta-item">
+        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 10c0 6-9 13-9 13S3 16 3 10a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Cambridge, UK
+      </div>
+      <a href="https://www.geog.cam.ac.uk/" target="_blank" rel="noopener" class="hero-meta-item" style="text-decoration:none;color:inherit;">
+        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        Department of Geography, Downing Site
+      </a>
+    </div>
+    <div class="hero-cta">
+      <a href="#feedback-form">Share your feedback</a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ════════ AT A GLANCE ════════ -->
+<section class="info-section">
+  <div class="container">
+    <p class="section-label reveal">At a glance</p>
+    <h2 class="section-title reveal">Programme overview</h2>
+    <p class="section-desc reveal">
+      The open meeting brings together researchers engaged with the integration of
+      palaeoclimate and palaeoenvironmental archives to better understand processes
+      of environmental change.
+    </p>
+    <div class="info-grid stagger-children">
+      <div class="info-card reveal">
+        <h3>Monday &ndash; Wednesday</h3>
+        <p>Presentations and discussion sessions across the conference themes.</p>
+      </div>
+      <div class="info-card reveal">
+        <h3>Tuesday evening</h3>
+        <p>Conference dinner (at own cost) &mdash; venue details to follow.</p>
+      </div>
+      <div class="info-card reveal">
+        <h3>Thursday (optional)</h3>
+        <p>Full-day field trip (at own cost) &mdash; details to follow.</p>
+      </div>
+      <div class="info-card reveal">
+        <h3>ECR / DCR support</h3>
+        <p>INQUA funding will be available to support early- and developing-career researchers.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ SESSION THEMES & FEEDBACK ════════ -->
+<section class="form-section" id="feedback-form">
+  <div class="container">
+    <p class="section-label reveal">Conference themes</p>
+    <h2 class="section-title reveal">Which sessions interest you?</h2>
+    <p class="section-desc reveal">
+      The following themes are under consideration. Select the ones that interest
+      you most and suggest new ideas below.
+    </p>
+
+    <div class="form-card reveal">
+      <form id="intimateForm">
+        <!-- Name / email -->
+        <div class="form-group">
+          <label class="group-label">About you</label>
+          <div class="form-row">
+            <div>
+              <label for="name" class="sr-only">Your name</label>
+              <input class="form-input" id="name" type="text" name="name" placeholder="Your name">
+            </div>
+            <div>
+              <label for="email" class="sr-only">Email address</label>
+              <input class="form-input" id="email" type="email" name="email" placeholder="Email address">
+            </div>
+          </div>
+        </div>
+
+        <!-- Theme voting -->
+        <fieldset class="form-group" style="border:none;">
+          <legend>Which session themes interest you most?</legend>
+          <p class="group-hint">Select all that apply.</p>
+          <div class="checkbox-grid">
+
+            <div class="cb-row">
+              <input type="checkbox" id="t1" name="themes" value="Integration of high-resolution palaeoclimate records">
+              <label for="t1">
+                <span class="cb-check"><svg viewBox="0 0 14 14" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2.5 7.5 5.5 10.5 11.5 3.5"/></svg></span>
+                Integration of high-resolution palaeoclimate records
+              </label>
+            </div>
+
+            <div class="cb-row">
+              <input type="checkbox" id="t2" name="themes" value="Advances in geochronological tools for record integration">
+              <label for="t2">
+                <span class="cb-check"><svg viewBox="0 0 14 14" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2.5 7.5 5.5 10.5 11.5 3.5"/></svg></span>
+                Advances in geochronological tools for record integration
+              </label>
+            </div>
+
+            <div class="cb-row">
+              <input type="checkbox" id="t3" name="themes" value="Resolving the anatomy of abrupt climate changes">
+              <label for="t3">
+                <span class="cb-check"><svg viewBox="0 0 14 14" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2.5 7.5 5.5 10.5 11.5 3.5"/></svg></span>
+                Resolving the anatomy of abrupt climate changes
+              </label>
+            </div>
+
+            <div class="cb-row">
+              <input type="checkbox" id="t4" name="themes" value="Determining environmental responses to abrupt climate warmings (analogues)">
+              <label for="t4">
+                <span class="cb-check"><svg viewBox="0 0 14 14" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2.5 7.5 5.5 10.5 11.5 3.5"/></svg></span>
+                Determining environmental responses to abrupt climate warmings (analogues)
+              </label>
+            </div>
+
+            <div class="cb-row">
+              <input type="checkbox" id="t5" name="themes" value="Modelling approaches to study mechanisms of abrupt climate changes">
+              <label for="t5">
+                <span class="cb-check"><svg viewBox="0 0 14 14" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2.5 7.5 5.5 10.5 11.5 3.5"/></svg></span>
+                Modelling approaches to study mechanisms of abrupt climate changes
+              </label>
+            </div>
+
+            <div class="cb-row">
+              <input type="checkbox" id="t6" name="themes" value="Integrating palaeodata with climate modelling">
+              <label for="t6">
+                <span class="cb-check"><svg viewBox="0 0 14 14" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2.5 7.5 5.5 10.5 11.5 3.5"/></svg></span>
+                Integrating palaeodata with climate modelling
+              </label>
+            </div>
+
+            <div class="cb-row">
+              <input type="checkbox" id="t7" name="themes" value="Exploring new directions for INTIMATE science">
+              <label for="t7">
+                <span class="cb-check"><svg viewBox="0 0 14 14" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2.5 7.5 5.5 10.5 11.5 3.5"/></svg></span>
+                Exploring new directions for INTIMATE science
+              </label>
+            </div>
+
+          </div>
+        </fieldset>
+
+        <!-- Free-text suggestions -->
+        <div class="form-group" style="margin-top: 44px;">
+          <label class="group-label" for="suggestions">Additional suggestions</label>
+          <p class="group-hint">
+            Propose new session topics, break-out discussions, or short workshops
+            you would like to see at the meeting.
+          </p>
+          <textarea class="form-textarea" id="suggestions" name="suggestions"
+            placeholder="e.g. &quot;A workshop on Bayesian age-depth modelling tools&quot; or &quot;Panel discussion on emerging proxy systems&quot;"></textarea>
+        </div>
+
+        <!-- Submit -->
+        <div class="form-submit">
+          <button type="submit" class="btn-submit">Submit feedback</button>
+        </div>
+      </form>
+
+      <!-- Thank-you (shown after submit) -->
+      <div class="thank-you" id="thankYou">
+        <h2>Thank you!</h2>
+        <p>Your feedback has been recorded. We will take your suggestions into account as we finalise the programme. Registration details will follow in early May.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ════════ FOOTER ════════ -->
+<footer>
+  <p>
+    INTIMATE-Cambridge26 &middot; An <a href="https://inqua.org/" target="_blank" rel="noopener">INQUA</a> project meeting
+    &middot; <a href="https://intimate.amu.edu.pl/" target="_blank" rel="noopener">intimate.amu.edu.pl</a>
+  </p>
+</footer>
+
+<script>
+  // ── Scroll reveal with IntersectionObserver ──
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // ═══════════════════════════════════════════════════════════════
+  // GOOGLE SHEETS BACKEND
+  // ───────────────────────────────────────────────────────────────
+  // Paste your Google Apps Script web-app URL below.
+  // See SETUP-GOOGLE-SHEET.md in this folder for instructions.
+  // ═══════════════════════════════════════════════════════════════
+  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx12k2UOa8H9v21d557AlFq8niaewo4Y1f7OyS8yd-LMMpr-7yHWeTHUvBCEo0UbTZ7iw/exec';
+
+  // ── Form submission handler ──
+  document.getElementById('intimateForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const btn = this.querySelector('.btn-submit');
+    btn.textContent = 'Sending\u2026';
+    btn.disabled = true;
+
+    const fd = new FormData(this);
+    const payload = {
+      timestamp: new Date().toISOString(),
+      name: fd.get('name') || '',
+      email: fd.get('email') || '',
+      themes: fd.getAll('themes').join('; '),
+      suggestions: fd.get('suggestions') || ''
+    };
+
+    if (APPS_SCRIPT_URL) {
+      fetch(APPS_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      })
+      .then(() => showThankYou())
+      .catch(() => showThankYou());   // no-cors hides errors; still recorded
+    } else {
+      // Fallback: log to console if Apps Script URL not yet configured
+      console.log('INTIMATE feedback (Apps Script URL not set):', payload);
+      showThankYou();
+    }
+  });
+
+  function showThankYou() {
+    const form = document.getElementById('intimateForm');
+    form.style.transition = 'opacity 200ms var(--ease-out), filter 200ms var(--ease-out)';
+    form.style.opacity = '0';
+    form.style.filter = 'blur(4px)';
+    setTimeout(() => {
+      form.style.display = 'none';
+      const ty = document.getElementById('thankYou');
+      ty.classList.add('visible');
+      ty.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 220);
+  }
+</script>
+</body>
+</html>
