@@ -3,9 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="INTIMATE-Cambridge26: an INQUA open meeting integrating ice core, marine and terrestrial palaeoclimate records. 14-17 September 2026, Cambridge, UK.">
+<meta property="og:title" content="INTIMATE-Cambridge26 | Cambridge, Sept 2026">
+<meta property="og:description" content="Open meeting bringing together researchers engaged with integrating palaeoclimate and palaeoenvironmental archives. Share your session feedback.">
+<meta property="og:type" content="website">
 <title>INTIMATE-Cambridge26 | Session Feedback</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;600;700&family=Figtree:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -18,14 +22,13 @@
     --accent-light: #d8f3dc;
     --accent2-light: #d0e8f2;
     --text:      #2b2b2b;
-    --text-muted:#6b6b6b;
+    --text-muted:#585858;
     --border:    #e0ddd6;
     --radius:    12px;
     --shadow-sm: 0 1px 3px rgba(0,0,0,.06);
     --shadow-md: 0 4px 20px rgba(0,0,0,.08);
     --shadow-lg: 0 12px 40px rgba(0,0,0,.10);
 
-    /* Emil Kowalski — custom easing curves */
     --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
     --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
     --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
@@ -34,14 +37,14 @@
   html { scroll-behavior: smooth; }
 
   body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: 'Figtree', -apple-system, BlinkMacSystemFont, sans-serif;
     background: var(--bg);
     color: var(--text);
     line-height: 1.65;
     -webkit-font-smoothing: antialiased;
   }
 
-  /* ── Scroll-triggered fade-in (Emil: stagger + scale from 0.95, never 0) ── */
+  /* ── Scroll-triggered fade-in ── */
   .reveal {
     opacity: 0;
     transform: translateY(16px) scale(0.98);
@@ -52,7 +55,7 @@
     transform: translateY(0) scale(1);
   }
 
-  /* Stagger children (Emil: stagger animations for lists) */
+  /* Stagger children */
   .stagger-children .reveal:nth-child(1) { transition-delay: 0ms; }
   .stagger-children .reveal:nth-child(2) { transition-delay: 60ms; }
   .stagger-children .reveal:nth-child(3) { transition-delay: 120ms; }
@@ -78,14 +81,6 @@
     background:
       radial-gradient(ellipse 80% 60% at 20% 80%, rgba(255,255,255,.07) 0%, transparent 70%),
       radial-gradient(ellipse 60% 50% at 80% 20%, rgba(255,255,255,.05) 0%, transparent 60%);
-    pointer-events: none;
-  }
-  .hero::after {
-    content: '';
-    position: absolute; inset: 0;
-    opacity: .04;
-    background-image:
-      repeating-conic-gradient(from 0deg at 50% 50%, transparent 0deg, transparent 3deg, rgba(255,255,255,.4) 3deg, rgba(255,255,255,.4) 3.5deg, transparent 3.5deg);
     pointer-events: none;
   }
   .hero-inner {
@@ -118,7 +113,7 @@
 
   /* ── Title ───────────────────────────────────── */
   .hero h1 {
-    font-family: 'Playfair Display', Georgia, serif;
+    font-family: 'Bricolage Grotesque', Georgia, serif;
     font-weight: 700;
     font-size: clamp(2.4rem, 5.5vw, 3.6rem);
     line-height: 1.15;
@@ -132,7 +127,7 @@
   }
   .hero h1 span {
     display: block;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Figtree', sans-serif;
     font-weight: 300;
     font-size: .42em;
     letter-spacing: .1em;
@@ -171,12 +166,19 @@
     flex-shrink: 0;
     opacity: .85;
   }
+  a.hero-meta-link {
+    text-decoration: none;
+    color: inherit;
+  }
+  a.hero-meta-link:hover {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
   .hero-cta {
     margin-top: 40px;
     animation: fadeUp 700ms var(--ease-out) 550ms both;
   }
 
-  /* Emil: buttons must feel responsive — scale(0.97) on :active */
   .hero-cta a {
     display: inline-block;
     background: #fff;
@@ -210,7 +212,7 @@
     margin-bottom: 8px;
   }
   .section-title {
-    font-family: 'Playfair Display', Georgia, serif;
+    font-family: 'Bricolage Grotesque', Georgia, serif;
     font-size: 1.9rem;
     font-weight: 600;
     color: var(--accent2);
@@ -223,8 +225,19 @@
     margin-bottom: 40px;
   }
 
+  /* ── Section divider accent ──────────────────── */
+  .hero + main::before {
+    content: '';
+    display: block;
+    height: 4px;
+    background: linear-gradient(90deg, var(--accent) 0%, var(--accent2) 50%, transparent 100%);
+  }
+
   /* ── Info cards ───────────────────────────────── */
-  .info-section { background: var(--surface); }
+  .info-section {
+    background: var(--surface);
+    position: relative;
+  }
   .info-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -236,11 +249,7 @@
     border: 1px solid var(--border);
     border-radius: var(--radius);
     padding: 24px;
-    transition: box-shadow 200ms var(--ease-out), transform 200ms var(--ease-out);
-  }
-  .info-card:hover {
-    box-shadow: var(--shadow-md);
-    transform: translateY(-2px);
+    transition: box-shadow 200ms var(--ease-out);
   }
   .info-card h3 {
     font-size: .95rem;
@@ -253,9 +262,17 @@
     color: var(--text-muted);
     line-height: 1.55;
   }
+  /* ECR card highlight */
+  .info-card.highlight {
+    background: var(--accent2-light);
+    border-color: rgba(27,73,101,.2);
+  }
 
   /* ── Form ─────────────────────────────────────── */
-  .form-section { background: var(--surface); }
+  .form-section {
+    background: linear-gradient(180deg, var(--bg) 0%, var(--surface) 40%);
+    border-top: 1px solid var(--border);
+  }
   .form-card {
     background: var(--bg);
     border: 1px solid var(--border);
@@ -279,7 +296,7 @@
     margin-bottom: 16px;
   }
 
-  /* Checkbox rows — Emil: transitions not keyframes for interruptible UI */
+  /* Checkbox rows */
   .checkbox-grid {
     display: flex;
     flex-direction: column;
@@ -308,7 +325,6 @@
     box-shadow: 0 0 0 3px rgba(45,106,79,.08);
     transform: translateY(-1px);
   }
-  /* Emil: active press feedback */
   .cb-row label:active {
     transform: scale(0.98);
   }
@@ -334,6 +350,12 @@
     transform: scale(1.05);
   }
   .cb-row input:checked + label .cb-check svg { opacity: 1; }
+  .cb-hint {
+    font-size: .82rem;
+    color: var(--text-muted);
+    font-weight: 400;
+    line-height: 1.4;
+  }
 
   /* Textarea & inputs */
   .form-textarea {
@@ -342,7 +364,7 @@
     border: 1.5px solid var(--border);
     border-radius: 10px;
     padding: 14px 18px;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Figtree', sans-serif;
     font-size: .95rem;
     line-height: 1.6;
     color: var(--text);
@@ -362,7 +384,7 @@
     border: 1.5px solid var(--border);
     border-radius: 10px;
     padding: 12px 18px;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Figtree', sans-serif;
     font-size: .95rem;
     color: var(--text);
     background: var(--surface);
@@ -380,13 +402,13 @@
     gap: 16px;
   }
 
-  /* Submit — Emil: active scale + custom easing */
+  /* Submit */
   .form-submit { margin-top: 36px; text-align: center; }
   .btn-submit {
     display: inline-block;
     background: linear-gradient(135deg, var(--accent), var(--accent2));
     color: #fff;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Figtree', sans-serif;
     font-size: 1rem;
     font-weight: 600;
     padding: 14px 48px;
@@ -443,7 +465,59 @@
     border: 0;
   }
 
-  /* Thank-you state — Emil: enter faster (200ms), blur mask for transition */
+  /* Field labels & validation */
+  .field-label {
+    display: block;
+    font-size: .85rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+  }
+  .required { color: #c0392b; font-weight: 600; }
+  .form-input.invalid,
+  .form-textarea.invalid {
+    border-color: #c0392b;
+    box-shadow: 0 0 0 3px rgba(192,57,43,.1);
+  }
+  .form-error-inline {
+    font-size: .82rem;
+    color: #c0392b;
+    margin-top: 4px;
+    display: none;
+  }
+  .form-error-inline.visible { display: block; }
+
+  /* Submission error banner */
+  .submit-error {
+    display: none;
+    background: #fdf0ed;
+    border: 1.5px solid #e8c4bc;
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin-top: 20px;
+    text-align: center;
+    color: #8b3a2a;
+    font-size: .92rem;
+    line-height: 1.5;
+  }
+  .submit-error.visible { display: block; }
+  .submit-error button {
+    background: #c0392b;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 20px;
+    font-family: 'Figtree', sans-serif;
+    font-size: .88rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: transform 160ms var(--ease-out);
+  }
+  .submit-error button:hover { transform: translateY(-1px); }
+  .submit-error button:active { transform: scale(0.97); }
+
+  /* Thank-you state */
   .thank-you {
     display: none;
     text-align: center;
@@ -496,7 +570,7 @@
     .form-row { grid-template-columns: 1fr; }
   }
 
-  /* ── Emil: respect prefers-reduced-motion ──── */
+  /* ── Respect prefers-reduced-motion ──── */
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
       animation-duration: 0.01ms !important;
@@ -531,7 +605,7 @@
         <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 10c0 6-9 13-9 13S3 16 3 10a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
         Cambridge, UK
       </div>
-      <a href="https://www.geog.cam.ac.uk/" target="_blank" rel="noopener" class="hero-meta-item" style="text-decoration:none;color:inherit;">
+      <a href="https://www.geog.cam.ac.uk/" target="_blank" rel="noopener" class="hero-meta-item hero-meta-link">
         <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
         Department of Geography, Downing Site
       </a>
@@ -567,7 +641,7 @@
         <h3>Thursday (optional)</h3>
         <p>Full-day field trip (at own cost) &mdash; details to follow.</p>
       </div>
-      <div class="info-card reveal">
+      <div class="info-card highlight reveal">
         <h3>ECR / DCR support</h3>
         <p>INQUA funding will be available to support early- and developing-career researchers.</p>
       </div>
@@ -592,12 +666,13 @@
           <label class="group-label">About you</label>
           <div class="form-row">
             <div>
-              <label for="name" class="sr-only">Your name</label>
-              <input class="form-input" id="name" type="text" name="name" placeholder="Your name">
+              <label for="name" class="field-label">Your name</label>
+              <input class="form-input" id="name" type="text" name="name" placeholder="e.g. Maria Lopez">
             </div>
             <div>
-              <label for="email" class="sr-only">Email address</label>
-              <input class="form-input" id="email" type="email" name="email" placeholder="Email address">
+              <label for="email" class="field-label">Email address <span class="required">*</span></label>
+              <input class="form-input" id="email" type="email" name="email" placeholder="e.g. m.lopez@cam.ac.uk" required>
+              <p class="form-error-inline" id="emailError">Please enter a valid email address.</p>
             </div>
           </div>
         </div>
@@ -612,7 +687,7 @@
               <input type="checkbox" id="t1" name="themes" value="Integration of high-resolution palaeoclimate records">
               <label for="t1">
                 <span class="cb-check"><svg viewBox="0 0 14 14" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2.5 7.5 5.5 10.5 11.5 3.5"/></svg></span>
-                Integration of high-resolution palaeoclimate records
+                <span><strong>Integration of high-resolution palaeoclimate records</strong><br><small class="cb-hint">Multi-proxy correlation across ice cores, speleothems, lake and marine sediments</small></span>
               </label>
             </div>
 
@@ -620,7 +695,7 @@
               <input type="checkbox" id="t2" name="themes" value="Advances in geochronological tools for record integration">
               <label for="t2">
                 <span class="cb-check"><svg viewBox="0 0 14 14" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2.5 7.5 5.5 10.5 11.5 3.5"/></svg></span>
-                Advances in geochronological tools for record integration
+                <span><strong>Advances in geochronological tools for record integration</strong><br><small class="cb-hint">Radiocarbon, tephrochronology, Bayesian age-depth modelling, and synchronisation</small></span>
               </label>
             </div>
 
@@ -628,7 +703,7 @@
               <input type="checkbox" id="t3" name="themes" value="Resolving the anatomy of abrupt climate changes">
               <label for="t3">
                 <span class="cb-check"><svg viewBox="0 0 14 14" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2.5 7.5 5.5 10.5 11.5 3.5"/></svg></span>
-                Resolving the anatomy of abrupt climate changes
+                <span><strong>Resolving the anatomy of abrupt climate changes</strong><br><small class="cb-hint">Onset, duration and phasing of Dansgaard-Oeschger events and Heinrich stadials</small></span>
               </label>
             </div>
 
@@ -636,7 +711,7 @@
               <input type="checkbox" id="t4" name="themes" value="Determining environmental responses to abrupt climate warmings (analogues)">
               <label for="t4">
                 <span class="cb-check"><svg viewBox="0 0 14 14" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2.5 7.5 5.5 10.5 11.5 3.5"/></svg></span>
-                Determining environmental responses to abrupt climate warmings (analogues)
+                <span><strong>Environmental responses to abrupt climate warmings</strong><br><small class="cb-hint">Past analogues for modern warming: ecosystem, hydrological and cryosphere responses</small></span>
               </label>
             </div>
 
@@ -644,7 +719,7 @@
               <input type="checkbox" id="t5" name="themes" value="Modelling approaches to study mechanisms of abrupt climate changes">
               <label for="t5">
                 <span class="cb-check"><svg viewBox="0 0 14 14" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2.5 7.5 5.5 10.5 11.5 3.5"/></svg></span>
-                Modelling approaches to study mechanisms of abrupt climate changes
+                <span><strong>Modelling mechanisms of abrupt climate changes</strong><br><small class="cb-hint">AMOC dynamics, freshwater forcing, ice sheet-climate feedbacks in GCMs and EMICs</small></span>
               </label>
             </div>
 
@@ -652,7 +727,7 @@
               <input type="checkbox" id="t6" name="themes" value="Integrating palaeodata with climate modelling">
               <label for="t6">
                 <span class="cb-check"><svg viewBox="0 0 14 14" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2.5 7.5 5.5 10.5 11.5 3.5"/></svg></span>
-                Integrating palaeodata with climate modelling
+                <span><strong>Integrating palaeodata with climate modelling</strong><br><small class="cb-hint">Data assimilation, model-data comparison, proxy system models and forward modelling</small></span>
               </label>
             </div>
 
@@ -660,7 +735,7 @@
               <input type="checkbox" id="t7" name="themes" value="Exploring new directions for INTIMATE science">
               <label for="t7">
                 <span class="cb-check"><svg viewBox="0 0 14 14" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2.5 7.5 5.5 10.5 11.5 3.5"/></svg></span>
-                Exploring new directions for INTIMATE science
+                <span><strong>Exploring new directions for INTIMATE science</strong><br><small class="cb-hint">Emerging proxies, machine learning, open data, community priorities</small></span>
               </label>
             </div>
 
@@ -676,6 +751,7 @@
           </p>
           <textarea class="form-textarea" id="suggestions" name="suggestions"
             placeholder="e.g. &quot;A workshop on Bayesian age-depth modelling tools&quot; or &quot;Panel discussion on emerging proxy systems&quot;"></textarea>
+          <p class="form-error-inline" id="feedbackError">Please select at least one session theme or add a suggestion.</p>
         </div>
 
         <!-- Submit -->
@@ -684,10 +760,16 @@
         </div>
       </form>
 
+      <!-- Error banner (shown on submission failure) -->
+      <div class="submit-error" id="submitError">
+        <p>Something went wrong and your feedback may not have been recorded. Please check your connection and try again.</p>
+        <button type="button" onclick="document.getElementById('intimateForm').requestSubmit()">Retry submission</button>
+      </div>
+
       <!-- Thank-you (shown after submit) -->
       <div class="thank-you" id="thankYou">
         <h2>Thank you!</h2>
-        <p>Your feedback has been recorded. We will take your suggestions into account as we finalise the programme. Registration details will follow in early May.</p>
+        <p>Your feedback has been recorded. We will take your suggestions into account as we finalise the programme. Registration details will follow soon.</p>
       </div>
     </div>
   </div>
@@ -724,12 +806,49 @@
   // ═══════════════════════════════════════════════════════════════
   const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx12k2UOa8H9v21d557AlFq8niaewo4Y1f7OyS8yd-LMMpr-7yHWeTHUvBCEo0UbTZ7iw/exec';
 
+  // ── Form validation ──
+  function validateForm(form) {
+    let valid = true;
+    const email = form.querySelector('#email');
+    const emailError = form.querySelector('#emailError');
+
+    // Reset
+    email.classList.remove('invalid');
+    if (emailError) emailError.classList.remove('visible');
+
+    // Email is required
+    if (!email.value.trim() || !email.validity.valid) {
+      email.classList.add('invalid');
+      if (emailError) emailError.classList.add('visible');
+      email.focus();
+      valid = false;
+    }
+
+    // Need at least one checkbox OR a text suggestion
+    const checked = form.querySelectorAll('input[name="themes"]:checked');
+    const suggestions = form.querySelector('#suggestions').value.trim();
+    const feedbackError = form.querySelector('#feedbackError');
+    if (checked.length === 0 && !suggestions) {
+      if (feedbackError) feedbackError.classList.add('visible');
+      valid = false;
+    } else {
+      if (feedbackError) feedbackError.classList.remove('visible');
+    }
+
+    return valid;
+  }
+
   // ── Form submission handler ──
   document.getElementById('intimateForm').addEventListener('submit', function(e) {
     e.preventDefault();
+
+    if (!validateForm(this)) return;
+
     const btn = this.querySelector('.btn-submit');
+    const errorBanner = document.getElementById('submitError');
     btn.textContent = 'Sending\u2026';
     btn.disabled = true;
+    errorBanner.classList.remove('visible');
 
     const fd = new FormData(this);
     const payload = {
@@ -747,10 +866,18 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       })
-      .then(() => showThankYou())
-      .catch(() => showThankYou());   // no-cors hides errors; still recorded
+      .then((response) => {
+        // no-cors returns opaque response; treat as success if no network error
+        showThankYou();
+      })
+      .catch((err) => {
+        console.error('Submission failed:', err);
+        btn.textContent = 'Submit feedback';
+        btn.disabled = false;
+        errorBanner.classList.add('visible');
+        errorBanner.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      });
     } else {
-      // Fallback: log to console if Apps Script URL not yet configured
       console.log('INTIMATE feedback (Apps Script URL not set):', payload);
       showThankYou();
     }
@@ -763,6 +890,7 @@
     form.style.filter = 'blur(4px)';
     setTimeout(() => {
       form.style.display = 'none';
+      document.getElementById('submitError').classList.remove('visible');
       const ty = document.getElementById('thankYou');
       ty.classList.add('visible');
       ty.scrollIntoView({ behavior: 'smooth', block: 'center' });
